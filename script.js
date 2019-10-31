@@ -14,6 +14,7 @@
  */
 
 const games = [];
+var abort = false;
 
 
 /**
@@ -26,7 +27,7 @@ function start() {
     alert("Þetta er leikur sem gengur út á að giska á rétta tölu á milli 0 - 100");
  do {
      play();
-    } while (confirm("Viltu spila annan leik?"));
+    } while (abort != true && confirm("Viltu spila annan leik?"));
     alert(getResults());
 }
 
@@ -51,7 +52,9 @@ function play() {
  while(true){
      if (getResponse(x, random) == 'Ekki rétt'){
         alert("Hætt í leik");
-         break;
+        abort = true;
+        debugger;
+        break;
      }
      N = N + 1;
      if(getResponse(x,random) == 'Rétt')
@@ -80,13 +83,13 @@ function play() {
 *    "Þú spilaðir engann leik >_<"
 */
 function getResults(){
-    if(games.length == 0){
+    if(games.length == 0 || games == null){
         return 'Þú spilaðir engann leik >_<';
     }
     
 
     return `Þú spilaðir ${games.length} leiki. 
-Meðalfjöldi ágiskanna var ${calculateAverage()} .`;
+Meðalfjöldi ágiskanna var ${calculateAverage()}.`;
 
 }
 
@@ -107,6 +110,7 @@ function calculateAverage(){
     
     } 
     var avg = sum / games.length;
+    avg = avg.toFixed(2);
     return avg;
 
 }
