@@ -49,10 +49,11 @@ function play() {
  var N = 0;
  let x = parseGuess(prompt("Giskaðu á tölu á milli 0 - 100"));
  while(true){
-     N = N + 1;
-     if (x == null){
+     if (getResponse(x, random) == 'Ekki rétt'){
+        alert("Hætt í leik");
          break;
      }
+     N = N + 1;
      if(getResponse(x,random) == 'Rétt')
      {
          games.push(N);
@@ -140,6 +141,9 @@ function parseGuess(input){
 * Math.abs skilar algildi tölu: |a| = Math.abs(a)
 */
 function getResponse(guess, correct){
+    if(guess == null){
+        return 'Ekki rétt';
+    }
     if(Math.abs(guess-correct)>=50){
         return 'Mjög langt frá';
     }
